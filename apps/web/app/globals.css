@@ -1,0 +1,125 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Neutral warm surfaces + one blue accent. Chart colours come from a palette validated for contrast and colour
+ * vision deficiency (light and dark are separate, selected steps — not an automatic inversion).
+ */
+:root {
+  --background: #f9f9f7;
+  --foreground: #0b0b0b;
+  --card: #fcfcfb;
+  --card-foreground: #0b0b0b;
+  --popover: #fcfcfb;
+  --popover-foreground: #0b0b0b;
+  --primary: #256abf;
+  --primary-foreground: #ffffff;
+  --secondary: #f0efec;
+  --secondary-foreground: #0b0b0b;
+  --muted: #f0efec;
+  --muted-foreground: #52514e;
+  --accent: #f0efec;
+  --accent-foreground: #0b0b0b;
+  --destructive: #d03b3b;
+  --border: #e1e0d9;
+  --input: #d6d5cd;
+  --ring: #2a78d6;
+  --radius: 0.75rem;
+
+  /* Data: single-series marks, chart chrome and the ordinal contribution ramp (level 0 = no contributions). */
+  --chart-1: #2a78d6;
+  --chart-grid: #e1e0d9;
+  --chart-axis: #898781;
+  --heat-0: #ebeae4;
+  --heat-1: #86b6ef;
+  --heat-2: #3987e5;
+  --heat-3: #256abf;
+  --heat-4: #104281;
+  --success: #006300;
+}
+
+.dark {
+  --background: #0d0d0d;
+  --foreground: #ffffff;
+  --card: #1a1a19;
+  --card-foreground: #ffffff;
+  --popover: #1a1a19;
+  --popover-foreground: #ffffff;
+  --primary: #3987e5;
+  --primary-foreground: #0b0b0b;
+  --secondary: #262624;
+  --secondary-foreground: #ffffff;
+  --muted: #262624;
+  --muted-foreground: #c3c2b7;
+  --accent: #262624;
+  --accent-foreground: #ffffff;
+  --destructive: #e66767;
+  --border: #2c2c2a;
+  --input: #383835;
+  --ring: #3987e5;
+
+  --chart-1: #3987e5;
+  --chart-grid: #2c2c2a;
+  --chart-axis: #898781;
+  --heat-0: #262624;
+  --heat-1: #184f95;
+  --heat-2: #256abf;
+  --heat-3: #3987e5;
+  --heat-4: #86b6ef;
+  --success: #0ca30c;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-geist-sans);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-grid: var(--chart-grid);
+  --color-chart-axis: var(--chart-axis);
+  --color-heat-0: var(--heat-0);
+  --color-heat-1: var(--heat-1);
+  --color-heat-2: var(--heat-2);
+  --color-heat-3: var(--heat-3);
+  --color-heat-4: var(--heat-4);
+  --color-success: var(--success);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

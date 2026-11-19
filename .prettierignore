@@ -5,3 +5,5 @@ coverage
 pnpm-lock.yaml
 apps/api/fixtures
 *.md
+apps/web/.next
+apps/web/next-env.d.ts
