@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parseSearchInput } from './normalize-input';
+import { parseSearchInput } from './parse-username';
 
 describe('parseSearchInput', () => {
   it.each([

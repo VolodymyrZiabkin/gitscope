@@ -7,7 +7,7 @@ import { LanguagesBreakdown } from '@/widgets/languages-breakdown';
 import { ProfileHeader } from '@/widgets/profile-header';
 import { RepositoriesTable } from '@/widgets/repositories-table';
 import { StatsOverview } from '@/widgets/stats-overview';
-import { getUserReport } from '../api/load';
+import { getUserReport } from '@/shared/server-api';
 import { parseYearParam } from '../lib/year-param';
 import { ContributionsSection } from './contributions-section';
 import { DashboardError } from './dashboard-error';

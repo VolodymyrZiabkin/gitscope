@@ -10,6 +10,8 @@ const weekdayName = new Intl.DateTimeFormat('en', { weekday: 'long', timeZone: '
 /** 1,284 → "1.3K"; small numbers stay exact. */
 export const formatCompact = (value: number) => (value < 10_000 ? integer.format(value) : compact.format(value));
 export const formatInteger = (value: number) => integer.format(value);
+/** Axis ticks are always compact so they fit a narrow axis: 1,950 → "2K". */
+export const formatAxisTick = (value: number) => compact.format(value);
 export const formatPercent = (share: number) => percent.format(share);
 
 /** `YYYY-MM-DD` or an ISO timestamp → "5 Mar 2026". */

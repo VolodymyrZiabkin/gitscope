@@ -1,6 +1,15 @@
 import type { Profile } from '@gitscope/shared';
-import { BuildingIcon, CalendarIcon, ExternalLinkIcon, LinkIcon, MapPinIcon, UsersIcon } from 'lucide-react';
+import {
+  ArrowLeftRightIcon,
+  BuildingIcon,
+  CalendarIcon,
+  ExternalLinkIcon,
+  LinkIcon,
+  MapPinIcon,
+  UsersIcon,
+} from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { CopyLinkButton } from './copy-link-button';
 import { formatCompact, formatMonthYear } from '@/shared/lib';
@@ -46,6 +55,10 @@ export function ProfileHeader({ profile }: { profile: Profile }) {
           </div>
           <div className="flex gap-2">
             <CopyLinkButton path={`/u/${profile.login}`} />
+            <Button variant="outline" nativeButton={false} render={<Link href={`/compare?users=${profile.login},`} />}>
+              <ArrowLeftRightIcon aria-hidden className="size-4" />
+              Compare
+            </Button>
             <Button
               variant="outline"
               nativeButton={false}

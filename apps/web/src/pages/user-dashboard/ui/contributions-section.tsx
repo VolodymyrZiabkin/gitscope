@@ -1,7 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { contributionsQuery } from '@/entities/contribution';
 import { ContributionActivity } from '@/widgets/contribution-activity';
-import { getContributions } from '../api/load';
+import { getContributions } from '@/shared/server-api';
 
 interface ContributionsSectionProps {
   login: string;
@@ -16,7 +16,7 @@ interface ContributionsSectionProps {
  */
 export async function ContributionsSection({ login, years, initialYear, now }: ContributionsSectionProps) {
   const queryClient = new QueryClient();
-  const result = await getContributions(login, initialYear);
+  const result = await getContributions(contributionsQuery.path(login, initialYear));
   if (result.ok) queryClient.setQueryData(contributionsQuery.key(login, initialYear), result.data);
 
   return (

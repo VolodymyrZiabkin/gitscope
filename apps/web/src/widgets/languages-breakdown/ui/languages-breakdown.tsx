@@ -7,19 +7,17 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/shared/ui/tooltip';
  * Part-to-whole as one stacked bar (≤ 6 languages + "Other"): close shares are easier to compare by length than
  * by donut angles. Segments are separated by a 2px gap, and the legend carries the names and exact shares.
  */
-export function LanguagesBreakdown({
-  languages,
-  repositoryCount,
-}: {
+interface LanguagesBreakdownProps {
   languages: LanguageStat[];
   repositoryCount: number;
-}) {
+  title?: string;
+}
+
+export function LanguagesBreakdown({ languages, repositoryCount, title = 'Languages' }: LanguagesBreakdownProps) {
   return (
-    <section aria-labelledby="languages-title" className="flex flex-col gap-4 rounded-xl border bg-card p-4">
+    <section aria-label={title} className="flex flex-col gap-4 rounded-xl border bg-card p-4">
       <div>
-        <h2 id="languages-title" className="font-semibold tracking-tight">
-          Languages
-        </h2>
+        <h2 className="font-semibold tracking-tight">{title}</h2>
         <p className="text-sm text-muted-foreground">By bytes of code across {repositoryCount} owned repositories</p>
       </div>
       {languages.length === 0 ? (

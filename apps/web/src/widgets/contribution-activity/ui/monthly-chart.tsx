@@ -2,7 +2,14 @@
 
 import type { Contributions } from '@gitscope/shared';
 import { Bar, BarChart, CartesianGrid, LabelList, Tooltip, XAxis, YAxis, type TooltipContentProps } from 'recharts';
-import { formatCompact, formatInteger, formatMonthYear, formatShortMonth, pluralize } from '@/shared/lib';
+import {
+  formatAxisTick,
+  formatCompact,
+  formatInteger,
+  formatMonthYear,
+  formatShortMonth,
+  pluralize,
+} from '@/shared/lib';
 import { ChartContainer, type ChartConfig } from '@/shared/ui/chart';
 
 const config = { count: { label: 'Contributions', color: 'var(--chart-1)' } } satisfies ChartConfig;
@@ -38,7 +45,7 @@ export function MonthlyChart({ monthly }: { monthly: Contributions['monthly'] })
             tickMargin={8}
             interval="preserveStartEnd"
           />
-          <YAxis allowDecimals={false} tickLine={false} axisLine={false} width={40} tickFormatter={formatCompact} />
+          <YAxis allowDecimals={false} tickLine={false} axisLine={false} width={44} tickFormatter={formatAxisTick} />
           <Tooltip cursor={{ fill: 'var(--muted)' }} content={MonthTooltip} />
           <Bar
             dataKey="count"

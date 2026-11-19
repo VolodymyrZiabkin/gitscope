@@ -6,7 +6,7 @@ import { useEffect, useId, useRef, useState, useTransition, type FormEvent } fro
 import { cn } from 'cn';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
-import { parseSearchInput } from '../model/normalize-input';
+import { parseSearchInput } from '@/shared/lib';
 import { addRecentSearch } from '../model/recent-searches';
 
 interface SearchFormProps {

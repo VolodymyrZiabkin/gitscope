@@ -1,11 +1,20 @@
 import { describe, expect, it } from 'vitest';
-import { formatCompact, formatDate, formatMonthYear, formatRelative, formatWeekday, pluralize } from './format';
+import {
+  formatAxisTick,
+  formatCompact,
+  formatDate,
+  formatMonthYear,
+  formatRelative,
+  formatWeekday,
+  pluralize,
+} from './format';
 
 describe('format', () => {
   it('keeps small numbers exact and compacts large ones', () => {
     expect(formatCompact(9_999)).toBe('9,999');
     expect(formatCompact(45_512)).toBe('45.5K');
     expect(formatCompact(2_340_000)).toBe('2.3M');
+    expect(formatAxisTick(1_950)).toBe('2K');
   });
 
   it('formats calendar dates without shifting them into the local time zone', () => {

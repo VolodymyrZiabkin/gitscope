@@ -2,7 +2,7 @@ import 'server-only';
 import { ImageResponse } from 'next/og';
 import { formatCompact } from '@/shared/lib';
 import { OG_SIZE, OgFrame } from '@/shared/ui/og-frame';
-import { getUserReport } from '../api/load';
+import { getUserReport } from '@/shared/server-api';
 
 /** Link previews must not hang on a cold API — fall back to the generic card instead. */
 const OG_TIMEOUT_MS = 8_000;

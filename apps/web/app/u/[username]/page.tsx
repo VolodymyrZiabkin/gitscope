@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { getUserReport, UserDashboardPage } from '@/pages/user-dashboard';
+import { UserDashboardPage } from '@/pages/user-dashboard';
+import { getUserReport } from '@/shared/server-api';
 import { formatCompact, pluralize } from '@/shared/lib';
 
 export async function generateMetadata({ params }: PageProps<'/u/[username]'>): Promise<Metadata> {

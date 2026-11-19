@@ -31,6 +31,7 @@
 
   /* Data: single-series marks, chart chrome and the ordinal contribution ramp (level 0 = no contributions). */
   --chart-1: #2a78d6;
+  --chart-2: #eb6834;
   --chart-grid: #e1e0d9;
   --chart-axis: #898781;
   --heat-0: #ebeae4;
@@ -62,6 +63,7 @@
   --ring: #3987e5;
 
   --chart-1: #3987e5;
+  --chart-2: #d95926;
   --chart-grid: #2c2c2a;
   --chart-axis: #898781;
   --heat-0: #262624;
@@ -95,6 +97,7 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
   --color-chart-grid: var(--chart-grid);
   --color-chart-axis: var(--chart-axis);
   --color-heat-0: var(--heat-0);
