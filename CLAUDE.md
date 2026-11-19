@@ -141,4 +141,8 @@ HTTP: `Cache-Control: public, max-age=300, stale-while-revalidate=600` + ETag.
 
 ## 5. Status (update after every step)
 
-- [ ] Day 1 · [ ] Day 2 · [ ] Day 3 · [ ] Day 4
+- [x] **Day 1** — monorepo, shared contract, Fastify API (GraphQL + fixture clients, analytics, cache, rate limit,
+  problem+json, Swagger), fixture recorder, CI. 96 tests (shared 15, api 81).
+  **Pending:** record fixtures — needs `GITHUB_TOKEN` in `apps/api/.env`
+  (`pnpm --filter @gitscope/api fixtures:record gaearon sindresorhus torvalds yyx990803`).
+- [ ] Day 2 · [ ] Day 3 · [ ] Day 4
