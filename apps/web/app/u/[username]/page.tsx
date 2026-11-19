@@ -6,7 +6,7 @@ import { formatCompact, pluralize } from '@/shared/lib';
 export async function generateMetadata({ params }: PageProps<'/u/[username]'>): Promise<Metadata> {
   const { username } = await params;
   const result = await getUserReport(username);
-  if (!result.ok) return { title: `@${username}` };
+  if (!result.ok) return { title: `@${username}`, robots: { index: false } };
 
   const { profile, stats, insights } = result.data;
   const title = profile.name ? `${profile.name} (@${profile.login})` : `@${profile.login}`;

@@ -1,6 +1,6 @@
 import { CompassIcon } from 'lucide-react';
 import Link from 'next/link';
-import { Button } from '@/shared/ui/button';
+import { buttonVariants } from '@/shared/ui/button';
 
 export function NotFoundPage() {
   return (
@@ -10,9 +10,9 @@ export function NotFoundPage() {
       </span>
       <h1 className="text-2xl font-semibold tracking-tight">Page not found</h1>
       <p className="text-muted-foreground">This page doesn’t exist. Profiles live at /u/username.</p>
-      <Button nativeButton={false} render={<Link href="/" />}>
+      <Link href="/" className={buttonVariants()}>
         Search a profile
-      </Button>
+      </Link>
     </div>
   );
 }

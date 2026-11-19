@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ThemeToggle } from './theme-toggle';
 import { siteConfig } from '@/shared/config';
-import { Button } from '@/shared/ui/button';
+import { buttonVariants } from '@/shared/ui/button';
 import { GithubIcon } from '@/shared/ui/github-icon';
 import { Logo } from '@/shared/ui/logo';
 import { HeaderSearch } from './header-search';
@@ -24,16 +24,15 @@ export function SiteHeader() {
         </div>
         <div className="flex-1 sm:hidden" />
         <div className="flex items-center gap-1">
-          <Button
-            variant="ghost"
-            size="icon"
-            nativeButton={false}
-            render={
-              <a href={siteConfig.repositoryUrl} target="_blank" rel="noreferrer" aria-label="Source code on GitHub" />
-            }
+          <a
+            href={siteConfig.repositoryUrl}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Source code on GitHub"
+            className={buttonVariants({ variant: 'ghost', size: 'icon' })}
           >
             <GithubIcon className="size-4" />
-          </Button>
+          </a>
           <ThemeToggle />
         </div>
       </div>

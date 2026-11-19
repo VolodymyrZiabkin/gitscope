@@ -13,7 +13,8 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { CopyLinkButton } from './copy-link-button';
 import { formatCompact, formatMonthYear } from '@/shared/lib';
-import { Button } from '@/shared/ui/button';
+import { cn } from 'cn';
+import { buttonVariants } from '@/shared/ui/button';
 
 function MetaItem({ icon: Icon, children }: { icon: typeof MapPinIcon; children: ReactNode }) {
   return (
@@ -55,18 +56,19 @@ export function ProfileHeader({ profile }: { profile: Profile }) {
           </div>
           <div className="flex gap-2">
             <CopyLinkButton path={`/u/${profile.login}`} />
-            <Button variant="outline" nativeButton={false} render={<Link href={`/compare?users=${profile.login},`} />}>
+            {/* Navigation stays a real link (role="link"), styled as a button. */}
+            <Link href={`/compare?users=${profile.login},`} className={buttonVariants({ variant: 'outline' })}>
               <ArrowLeftRightIcon aria-hidden className="size-4" />
               Compare
-            </Button>
-            <Button
-              variant="outline"
-              nativeButton={false}
-              render={<a href={profile.htmlUrl} target="_blank" rel="noreferrer" />}
-              className="hidden sm:inline-flex"
+            </Link>
+            <a
+              href={profile.htmlUrl}
+              target="_blank"
+              rel="noreferrer"
+              className={cn(buttonVariants({ variant: 'outline' }), 'hidden sm:inline-flex')}
             >
               View on GitHub
-            </Button>
+            </a>
           </div>
         </div>
         {profile.bio ? <p className="max-w-2xl text-pretty">{profile.bio}</p> : null}
