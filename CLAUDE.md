@@ -33,15 +33,28 @@
 - Rate limit keys on the real client IP: requests from the Next server carry `x-internal-key` + `x-client-ip`;
   the client IP header is trusted **only** with a valid internal key (timing-safe compare).
 
-**Web (Next.js 16)** — added on Day 2
+**Web (Next.js 16)**
 - Read `node_modules/next/dist/docs/` of the installed version before writing Next code (see `apps/web/AGENTS.md`).
 - `params` / `searchParams` are Promises. Expected errors (404, 429) are values rendered as UI states;
   `error.tsx` is only for unexpected failures (production strips server error messages).
-- Feature-Sliced Design in `apps/web/src` (app → pages → widgets → features → entities → shared), checked by `steiger`.
-  Next routing lives in `apps/web/app` and only re-exports pages; an empty `apps/web/pages/` keeps Next from treating
-  `src/pages` as the Pages Router.
+- `cacheComponents` is **off**: data pages are per-request (the visitor IP is forwarded for rate limiting) and caching
+  lives in the API. Server fetches use `cache: 'no-store'`.
+- Feature-Sliced Design in `apps/web/src` (app → pages → widgets → features → entities → shared), checked by `steiger`
+  (part of `pnpm lint`). Next routing lives in `apps/web/app` and only re-exports pages; an empty `apps/web/pages/`
+  keeps Next from treating `src/pages` as the Pages Router. Slices on one layer never import each other; something
+  used by one slice lives inside it (features = reusable interactions only). `fsd/insignificant-slice` is off — see
+  `steiger.config.ts`.
+- Server-only code is in `@/shared/server-api` (has `import 'server-only'`); `@/shared/api` must stay client-safe.
 - Server Components by default; `'use client'` only for interactive parts (filters, charts, year switch).
 - The browser talks to the API only through the Next proxy route (`app/api/[...path]/route.ts`).
+- URL state (filters, year) is written with `history.replaceState` — no server re-render. Values that depend on "now"
+  are passed from the server as props, otherwise hydration mismatches.
+- Query freshness (`staleTime`) belongs to the query options contract, not to client defaults.
+- Base UI `Button` with `render={<a/>}` gets `role="button"` — navigation uses `<Link className={buttonVariants()}>`.
+- Charts: colours from the validated palette in `app/globals.css` (`--chart-1/2`, `--heat-0..4`); never cycle hues.
+- `loading.tsx` on `/u/[username]` means a missing user is a 200 + `noindex` page (documented trade-off).
+- Dev: port 3000 may be taken by another local project — run `pnpm --filter @gitscope/web dev --port 3100`.
+- Turbopack can keep a stale server graph after moving files — restart `pnpm dev` (and `rm -rf .next/dev`).
 
 ---
 
@@ -50,7 +63,7 @@
 **Pages:** `/` (hero, search, example profiles, recent searches) · `/u/[username]` (dashboard) · `/compare?users=a,b` (P1) · not-found.
 
 **Dashboard:** profile header → KPI tiles → contribution heatmap with year switch → monthly activity chart →
-languages donut → repositories table (search, language filter, sort — state in the URL, filtered on the client) → insights.
+languages part-to-whole bar (≤ 6 + Other) → repositories table (search, language filter, sort — state in the URL, filtered on the client) → insights.
 
 **Sharing:** `generateMetadata` + `opengraph-image.tsx` (`next/og`) — avatar, stars, top language; generic image on failure.
 
@@ -142,7 +155,13 @@ HTTP: `Cache-Control: public, max-age=300, stale-while-revalidate=600` + ETag.
 ## 5. Status (update after every step)
 
 - [x] **Day 1** — monorepo, shared contract, Fastify API (GraphQL + fixture clients, analytics, cache, rate limit,
-  problem+json, Swagger), fixture recorder, CI. 96 tests (shared 15, api 81).
-  **Pending:** record fixtures — needs `GITHUB_TOKEN` in `apps/api/.env`
-  (`pnpm --filter @gitscope/api fixtures:record gaearon sindresorhus torvalds yyx990803`).
-- [ ] Day 2 · [ ] Day 3 · [ ] Day 4
+  problem+json, Swagger), fixture recorder (4 profiles recorded), CI.
+- [x] **Day 2–3** — Next.js app: home + search, dashboard (profile, KPIs, streamed contribution activity with year
+  switch, monthly + weekday charts, languages, insights, repositories with URL filters), loading/error/not-found states,
+  dark mode, a11y, 375px.
+- [x] **Day 4** — OG images, compare page, Playwright E2E (+ CI job), Docker image for the API, Render blueprint,
+  README with screenshots, `pnpm audit` clean.
+- Tests: shared 15, api 81, web 54, E2E 10. Verified: production build, Docker image (health, bad token → 502,
+  production env guard), live GitHub data with a token.
+- **Not done yet (needs the user):** push to GitHub (repo `VolodymyrZiabkin/gitscope`), deploy (Render + Vercel
+  accounts), tags `v0.1` / `v1.0` after review. Optional P2: SVG stats card for READMEs, Storybook.
