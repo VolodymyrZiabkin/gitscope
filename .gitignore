@@ -22,3 +22,5 @@ playwright-report
 *.pem
 .vercel
 NOTES.local.md
+/test-results
+/playwright-report
