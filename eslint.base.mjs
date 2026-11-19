@@ -15,6 +15,8 @@ export function createConfig(tsconfigRootDir) {
       rules: {
         '@typescript-eslint/consistent-type-imports': 'error',
         '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
+        // Fastify uses `async` as the contract for plugins, hooks and handlers, even without an `await` inside.
+        '@typescript-eslint/require-await': 'off',
       },
     },
     {
