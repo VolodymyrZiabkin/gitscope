@@ -27,12 +27,16 @@ export function forwardingHeaders(requestHeaders: Headers): Record<string, strin
  * Server Components → Fastify API. Never cached by Next: the API owns caching, and every request carries
  * the visitor's IP for rate limiting. Expected failures come back as values, not exceptions.
  */
-export async function serverApiFetch<T>(path: string, schema: z.ZodType<T>): Promise<ApiResult<T>> {
+export async function serverApiFetch<T>(
+  path: string,
+  schema: z.ZodType<T>,
+  { timeoutMs = TIMEOUT_MS }: { timeoutMs?: number } = {},
+): Promise<ApiResult<T>> {
   try {
     const response = await fetch(`${serverEnv.API_URL}${path}`, {
       cache: 'no-store',
       headers: forwardingHeaders(await headers()),
-      signal: AbortSignal.timeout(TIMEOUT_MS),
+      signal: AbortSignal.timeout(timeoutMs),
     });
     return { ok: true, data: await parseResponse(response, schema) };
   } catch (error) {

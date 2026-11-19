@@ -5,8 +5,8 @@ import { contributionsQuery } from '@/entities/contribution';
 import { serverApiFetch } from '@/shared/server-api';
 
 /** `cache` dedupes the call between generateMetadata and the page within one request. */
-export const getUserReport = cache((username: string) =>
-  serverApiFetch(`/users/${encodeURIComponent(username)}`, userReportSchema),
+export const getUserReport = cache((username: string, options?: { timeoutMs?: number }) =>
+  serverApiFetch(`/users/${encodeURIComponent(username)}`, userReportSchema, options),
 );
 
 export const getContributions = (login: string, year: number | null) =>
