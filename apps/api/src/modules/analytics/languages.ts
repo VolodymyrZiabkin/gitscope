@@ -11,10 +11,11 @@ export const OTHER_LANGUAGE = 'Other';
 /**
  * Sums language bytes across repositories and keeps the `limit` biggest languages; the tail is folded into "Other".
  * Bytes (not repository counts) — one huge repository should outweigh ten one-file experiments.
+ * The default of 6 (+ "Other") keeps the part-to-whole bar readable: more segments blur together.
  */
 export function aggregateLanguages(
   repositories: readonly (readonly RepositoryLanguage[])[],
-  limit = 8,
+  limit = 6,
 ): LanguageStat[] {
   const totals = new Map<string, { color: string | null; bytes: number }>();
   for (const languages of repositories) {
