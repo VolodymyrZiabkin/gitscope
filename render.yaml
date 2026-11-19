@@ -1,0 +1,20 @@
+# Render Blueprint for the API (free web service, Docker). The web app is deployed to Vercel separately.
+services:
+  - type: web
+    name: gitscope-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./apps/api/Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: INTERNAL_API_KEY
+        sync: false
+      # Render terminates TLS in one proxy hop in front of the container.
+      - key: TRUST_PROXY
+        value: '1'
+      - key: LOG_LEVEL
+        value: info
